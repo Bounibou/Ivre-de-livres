@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Revues - Ivre de Livres</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Police -->
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&display=swap" rel="stylesheet">
+
+  <style>
+    /* ===================== */
+    /* Base */
+    /* ===================== */
+    body {
+      margin: 0;
+      font-family: 'Cormorant Garamond', serif;
+      background-color: #f3e1d7;
+      color: #3b2f2f;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 20px;
+      min-height: 100vh;
+      position: relative;
+    }
+
+    /* =========================== */
+    /* Nouveau menu iconique */
+    /* =========================== */
+    .menu-carte-container {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      z-index: 100;
+    }
+
+    .menu-carte {
+  position: relative;
+  width: 60px;
+  height: 60px;
+  background-color: rgba(255,255,255,0.6);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center; /* 👉 centre l’icône par défaut */
+  cursor: pointer;
+  overflow: hidden;
+  transition: width 0.3s ease, box-shadow 0.3s ease, justify-content 0.3s ease;
+  text-decoration: none;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+    .menu-carte:hover {
+  width: 170px;
+  justify-content: flex-start; /* 👉 icône à gauche */
+  padding-left: 12px;          /* espace confortable */
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  transform: translateY(-2px) scale(1.05);
+}
+
+    .menu-icon {
+  width: 30px;
+  height: 30px;
+  transition: transform 0.3s ease, filter 0.3s ease;
+  filter: brightness(1.1);
+  flex-shrink: 0; /* empêche l’icône de se tasser */
+}
+
+    .menu-text {
+  position: absolute;
+  left: 100px;
+  white-space: nowrap;
+  opacity: 0;
+  font-weight: 600;
+  color: #4A1F2D;
+  font-family: 'Cormorant Garamond', serif;
+  transition: opacity 0.4s ease, transform 0.4s ease;
+  transform: translateX(-10px);
+}
+
+.menu-carte:hover .menu-text {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.menu-carte:hover .menu-icon {
+      transform: rotate(-10deg) scale(1.1);
+    }
+
+.menu-carte.active {
+  background-color: rgba(255,105,180,0.7);
+  box-shadow: 0 0 25px rgba(255,105,180,0.5);
+}
+
+    /* ===================== */
+    /* Titre */
+    /* ===================== */
+    h1 {
+      color: #4A1F2D;
+      font-size: 3em;
+      margin-top: 0;
+      margin-bottom: 20px;
+      text-align: center;
+      z-index: 1;
+    }
+
+    /* ===================== */
+    /* Cartes de genres */
+    /* ===================== */
+    .cards-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      max-width: 800px;
+      z-index: 1;
+    }
+
+    .genre-card {
+  display: flex;
+  flex-direction: column;       /* image au-dessus du texte */
+  align-items: center;
+  justify-content: center;
+  width: 150px;                 /* largeur fixe */
+  height: 180px;                /* hauteur fixe */
+  padding: 10px;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 25px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+  text-decoration: none;
+  transition: transform 0.2s, box-shadow 0.2s, background-color 0.2s;
+  text-align: center;
+  animation: fadeIn 1s ease forwards;
+}
+
+.genre-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  background-color: #f9f3ee;
+}
+
+.genre-img {
+  width: 130px;                  /* taille maximale de l’image */
+  height: 130px;
+  object-fit: contain;           /* garde le ratio de l’image */
+  margin-bottom: 8px;           /* espace entre image et texte */
+}
+
+.genre-text {
+  font-weight: 600;
+  color: #4A1F2D;
+  word-wrap: break-word;         /* texte qui se casse si trop long */
+}
+
+    /* ===================== */
+    /* Footer */
+    /* ===================== */
+    footer {
+      margin-top: 40px;
+      text-align: center;
+      font-weight: 600;
+      color: #4A1F2D;
+      z-index: 1;
+    }
+
+    footer a {
+      color: #4A1F2D;
+      text-decoration: none;
+      border-bottom: 1px dashed #4A1F2D;
+    }
+
+    /* ===================== */
+    /* Animation Fade In */
+    /* ===================== */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(15px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+   /* ===========================
+   MENU – PHONE ONLY
+   =========================== */
+@media (max-width: 768px) {
+
+  /* Menu en haut à droite */
+  .menu-carte-container {
+    top: 10px;
+    right: 10px;
+    left: auto;
+    flex-direction: row;
+    gap: 8px;
+  }
+
+  .menu-carte {
+    width: 38px;
+    height: 38px;
+    padding: 0;
+    border-radius: 9px;
+    justify-content: center;
+  }
+
+  /* Neutraliser le hover mobile */
+  .menu-carte:hover {
+    width: 38px;
+    padding-left: 0;
+    justify-content: center;
+  }
+
+  .menu-icon {
+    width: 20px;
+    height: 20px;
+  }
+
+  /* Texte masqué sur téléphone */
+  .menu-text {
+    display: none;
+  }
+}
+
+@media (max-width: 1024px) {
+
+  h1 {
+    font-size: 2.5em;
+  }
+
+  .cards-container {
+    max-width: 100%;
+    gap: 15px;
+  }
+
+  .genre-card {
+    width: 140px;
+    height: 170px;
+  }
+
+  .genre-img {
+    width: 115px;
+    height: 115px;
+  }
+
+  .menu-carte {
+    width: 50px;
+    height: 50px;
+  }
+
+  .menu-carte:hover {
+    width: 140px;
+  }
+
+  .menu-text {
+    left: 80px;
+    font-size: 0.9em;
+  }
+}
+
+@media (max-width: 768px) {
+  .cards-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* ===========================
+   CARTES GENRES – PHONE ONLY
+   4 PAR LIGNE
+   =========================== */
+@media (max-width: 768px) {
+
+  .cards-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 4 cartes par ligne */
+    gap: 8px;
+  }
+
+  .genre-card {
+    height: 80px;
+    width: 70px;
+    padding: 3px;
+    border-radius: 14px;
+  }
+
+  .genre-img {
+    width: 60px;
+    height: 55px;
+    margin-bottom: 4px;
+  }
+
+  .genre-text {
+    font-size: 0.7em;
+    line-height: 1.1;
+  }
+}
+
+/* ===================== */
+/* Logo principal */
+/* ===================== */
+.logo-link {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 5px;
+  z-index: 1;
+}
+
+.main-logo {
+  width: 190px;
+  height: auto;
+  cursor: pointer;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.main-logo:hover {
+  transform: scale(1.05);
+  opacity: 0.9;
+}
+  </style>
+</head>
+
+<body>
+
+  <!-- Menu iconique -->
+  <div class="menu-carte-container">
+    <a href="index.html" class="menu-carte">
+      <img src="home.png" class="menu-icon" alt="Accueil">
+      <span class="menu-text">Accueil</span>
+    </a>
+    <a href="accueil revues.html" class="menu-carte">
+      <img src="revue.png" class="menu-icon" alt="Revues">
+      <span class="menu-text">Revues</span>
+    </a>
+    <a href="quotes.html" class="menu-carte">
+      <img src="quote.png" class="menu-icon" alt="Quotes">
+      <span class="menu-text">Quotes</span>
+    </a>
+  </div>
+
+<a href="index.html" class="logo-link">
+  <img src="Logo.png" alt="Ivre de Livres" class="main-logo">
+</a>
+  <h1>Revues de livres</h1>
+
+  <!-- Cartes de genres -->
+<div class="cards-container">
+  <a href="thriller.html" class="genre-card">
+    <img src="thriller.png" class="genre-img" alt="Thriller">
+    <span class="genre-text">Thriller</span>
+  </a>
+
+  <a href="romance.html" class="genre-card">
+    <img src="romance.png" class="genre-img" alt="Romance">
+    <span class="genre-text">Romance</span>
+  </a>
+
+  <a href="classique.html" class="genre-card">
+    <img src="classique.png" class="genre-img" alt="Classique">
+    <span class="genre-text">Classique</span>
+  </a>
+
+<a href="Enquête Policier.html" class="genre-card">
+    <img src="enquête policier.png" class="genre-img" alt="Enquête Policier">
+    <span class="genre-text">Enquête Policier</span>
+  </a>
+
+  <a href="science-fiction.html" class="genre-card">
+    <img src="science-fiction.png" class="genre-img" alt="Science-Fiction">
+    <span class="genre-text">Science-Fiction</span>
+  </a>
+
+  <a href="jeunesse.html" class="genre-card">
+    <img src="jeunesse.png" class="genre-img" alt="Jeunesse">
+    <span class="genre-text">Jeunesse</span>
+  </a>
+</div>
+
+  <footer>
+    <p><a href="index.html">Retour à l'accueil</a></p>
+    <p>Téléchargez vos prochaines lectures ici ! <a href="https://z-library.sk/" target="_blank">Z-library</a></p>
+    <p>©2026 - Ivre de Livres</p>
+  </footer>
+
+</body>
+</html>

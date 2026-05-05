@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Quotes - Ivre de Livres</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Police -->
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&display=swap" rel="stylesheet">
+
+  <style>
+    /* ===================== */
+    /* Base */
+    /* ===================== */
+    body {
+      margin: 0;
+      font-family: 'Cormorant Garamond', serif;
+      background-color: #f3e1d7;
+      color: #3b2f2f;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 20px;
+      min-height: 100vh;
+      position: relative;
+    }
+
+    /* ===========================
+       Nouveau menu iconique
+       =========================== */
+    .menu-carte-container {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      z-index: 100;
+    }
+
+    .menu-carte {
+  position: relative;
+  width: 60px;
+  height: 60px;
+  background-color: rgba(255,255,255,0.6);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center; /* 👉 centre l’icône par défaut */
+  cursor: pointer;
+  overflow: hidden;
+  transition: width 0.3s ease, box-shadow 0.3s ease, justify-content 0.3s ease;
+  text-decoration: none;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+    .menu-carte:hover {
+  width: 170px;
+  justify-content: flex-start; /* 👉 icône à gauche */
+  padding-left: 12px;          /* espace confortable */
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  transform: translateY(-2px) scale(1.05);
+}
+
+    .menu-icon {
+  width: 30px;
+  height: 30px;
+  transition: transform 0.3s ease, filter 0.3s ease;
+  filter: brightness(1.1);
+  flex-shrink: 0; /* empêche l’icône de se tasser */
+}
+
+    .menu-text {
+  position: absolute;
+  left: 100px;
+  white-space: nowrap;
+  opacity: 0;
+  font-weight: 600;
+  color: #4A1F2D;
+  font-family: 'Cormorant Garamond', serif;
+  transition: opacity 0.4s ease, transform 0.4s ease;
+  transform: translateX(-10px);
+}
+
+.menu-carte:hover .menu-text {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.menu-carte:hover .menu-icon {
+      transform: rotate(-10deg) scale(1.1);
+    }
+
+.menu-carte.active {
+  background-color: rgba(255,105,180,0.7);
+  box-shadow: 0 0 25px rgba(255,105,180,0.5);
+}
+
+    /* ===================== */
+/* Bambou décoratif */
+/* ===================== */
+.decor-bambou {
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 50%;
+  opacity: 1;
+  pointer-events: none;
+  z-index: 0;
+  transform: scaleX(-1); /* ← retournement horizontal */
+}
+
+
+    /* ===================== */
+    /* Titre */
+    /* ===================== */
+    h1 {
+      color: #4A1F2D;
+      font-size: 3em;
+      margin-bottom: 30px;
+      text-align: center;
+      z-index: 1;
+    }
+
+    /* ===================== */
+    /* Quotes */
+    /* ===================== */
+    .quotes-container {
+      display: flex;
+      flex-direction: column;
+      gap: 25px;
+      max-width: 900px;
+      width: 100%;
+      z-index: 1;
+    }
+
+    .quote-card {
+      background: rgba(249, 243, 238, 0.8); /* semi-transparent */
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px); /* Safari */
+      padding: 20px 25px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+      font-size: 1.2em;
+      color: #2F0F18;
+      text-align: center;
+      line-height: 1.6em;
+    }
+
+    .quote-author {
+      margin-top: 12px;
+      font-weight: bold;
+      color: #7a746e;
+    }
+
+    /* ===================== */
+    /* Footer */
+    /* ===================== */
+    footer {
+      margin-top: 20px;
+      font-weight: 600;
+      color: #4A1F2D;
+      text-align: center;
+      z-index: 1;
+    }
+
+    footer a {
+      color: #4A1F2D;
+      text-decoration: none;
+      border-bottom: 1px dashed #4A1F2D;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Menu iconique -->
+  <div class="menu-carte-container">
+    <a href="index.html" class="menu-carte">
+      <span class="menu-text">Accueil</span>
+      <img src="home.png" class="menu-icon" alt="Accueil">
+    </a>
+    <a href="accueil revues.html" class="menu-carte">
+      <span class="menu-text">Revues</span>
+      <img src="revue.png" class="menu-icon" alt="Revues">
+    </a>
+    <a href="quotes.html" class="menu-carte">
+      <span class="menu-text">Quotes</span>
+      <img src="quote.png" class="menu-icon" alt="Quotes">
+    </a>
+  </div>
+
+  <!-- Bambou -->
+  <img src="bordure.png" alt="Bambou" class="decor-bambou">
+
+  <h1>Quotes Inspirantes</h1>
+
+  <div class="quotes-container">
+    <div class="quote-card">
+      « Un lecteur vit mille vies avant de mourir. »
+      <div class="quote-author">— George R.R. Martin</div>
+    </div>
+
+    <div class="quote-card">
+      « Il ne faut jamais juger les gens sur leurs fréquentations. »
+      <div class="quote-author">— Oscar Wilde</div>
+    </div>
+
+    <div class="quote-card">
+      « On ne voit bien qu’avec le cœur. »
+      <div class="quote-author">— Antoine de Saint-Exupéry</div>
+    </div>
+
+    <div class="quote-card">
+      « Un livre est un jardin que l’on peut cultiver éternellement. »
+      <div class="quote-author">— Proverbe chinois</div>
+    </div>
+  </div>
+
+  <footer>
+    <p><a href="index.html">Retour à l'accueil</a></p>
+    <p>Téléchargez vos prochaines lectures ici !
+      <a href="https://z-library.sk/" target="_blank">Z-library</a>
+    </p>
+<p>©2026 - Ivre de Livres</a></p>
+  </footer>
+
+</body>
+</html>
