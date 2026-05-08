@@ -1,1 +1,21 @@
+backend:
+  name: git-gateway
 
+media_folder: "images"
+public_folder: "/images"
+
+collections:
+  - name: "thriller"
+    label: "Thriller"
+    files:
+      - label: "Livres Thriller"
+        name: "thriller"
+        file: "data/thriller.json"
+        fields:
+          - label: "Livres"
+            name: "books"
+            widget: "list"
+            fields:
+              - {label: "Auteur", name: "author", widget: "string"}
+              - {label: "Titre", name: "title", widget: "string"}
+              - {label: "Image", name: "image", widget: "image"}
