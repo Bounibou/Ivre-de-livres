@@ -5,475 +5,102 @@
   <title>Thriller - Ivre de Livres</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- Police -->
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Nosifer&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Cinzel&display=swap" rel="stylesheet">
 
   <style>
-    /* ===================== */
-    /* Base */
-    /* ===================== */
     body {
       margin: 0;
       font-family: 'Cormorant Garamond', serif;
-        background: linear-gradient(to bottom, #0a0a0f, #1a1a1f);
-  color: #e6e6e6;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+      background: linear-gradient(to bottom, #0a0a0f, #1a1a1f);
+      color: #e6e6e6;
       padding: 40px 20px;
-      min-height: 100vh;
-      position: relative;
-    }
-    /* ===========================
-       Nouveau menu iconique
-       =========================== */
-    .menu-carte-container {
-      position: fixed;
-      top: 20px;
-      left: 20px;
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-      z-index: 100;
+      text-align: center;
     }
 
-    .menu-carte {
-  position: relative;
-  width: 60px;
-  height: 60px;
-  background-color: rgba(255,255,255,0.6);
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center; /* 👉 centre l’icône par défaut */
-  cursor: pointer;
-  overflow: hidden;
-  transition: width 0.3s ease, box-shadow 0.3s ease, justify-content 0.3s ease;
-  text-decoration: none;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-}
-
-    .menu-carte:hover {
-  width: 170px;
-  justify-content: flex-start; /* 👉 icône à gauche */
-  padding-left: 12px;          /* espace confortable */
-  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-  transform: translateY(-2px) scale(1.05);
-}
-
-    .menu-icon {
-  width: 30px;
-  height: 30px;
-  transition: transform 0.3s ease, filter 0.3s ease;
-  filter: brightness(1.1);
-  flex-shrink: 0; /* empêche l’icône de se tasser */
-}
-
-    .menu-text {
-  position: absolute;
-  left: 100px;
-  white-space: nowrap;
-  opacity: 0;
-  font-weight: 600;
-  color: #4A1F2D;
-  font-family: 'Cormorant Garamond', serif;
-  transition: opacity 0.4s ease, transform 0.4s ease;
-  transform: translateX(-10px);
-}
-
-.menu-carte:hover .menu-text {
-  opacity: 1;
-  transform: translateX(0);
-}
-
-.menu-carte:hover .menu-icon {
-      transform: rotate(-10deg) scale(1.1);
-    }
-
-.menu-carte.active {
-  background-color: rgba(255,105,180,0.7);
-  box-shadow: 0 0 25px rgba(255,105,180,0.5);
-}
-
-    /* ===================== */
-    /* Titre */
-    /* ===================== */
-    .title-container {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-    h1 {
-  font-family:'Nosifer', cursive;
-  color: #b3003c;
-  font-size: 3.5em;
-  margin-bottom: 10px;
-  text-align: center;
-  letter-spacing: 4px;
-  text-shadow:
-    0 0 5px rgba(139,0,0,0.7),
-    0 0 15px rgba(139,0,0,0.6),
-    0 0 30px rgba(139,0,0,0.4);
-  animation: flicker 3s infinite alternate;
-  z-index: 1;
-}
-
-.blood-line {
-  width: 0;
-  height: 3px;
-  background: linear-gradient(to right, #8b0000, #b3003c);
-  margin: 8px auto 25px auto;
-  animation: lineReveal 2s ease forwards;
-}
-
-@keyframes lineReveal {
-  from { width: 0; }
-  to { width: 180px; }
-}
-
-    h2 {
-  font-family: 'Cinzel', serif;
-  color: #E0E0E0;   /* gris clair */
-  font-size: 1.5em;
-  text-align: center;
-}
-
-    /* ===================== */
-    /* Cartes livres */
-    /* ===================== */
     .cards-container {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
       gap: 20px;
-      max-width: 1500px;
-      z-index: 1;
     }
 
     .card {
-      background: #303030; /* semi-transparent */
-  backdrop-filter: blur(2px);
-  -webkit-backdrop-filter: blur(2px); /* Safari */
+      background: #303030;
       width: 150px;
       border-radius: 12px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-      padding: 20px;
-      text-align: center;
-      transition: transform 0.2s;
+      padding: 15px;
     }
 
-    .card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+    .book-img {
+      width: 100%;
+      border-radius: 8px;
     }
 
     .author {
       font-weight: bold;
-      color: #BFBFBF;
+      color: #ccc;
     }
 
     .title {
-      margin-top: 10px;
-      font-size: 1.1em;
-      color: #BFBFBF;
+      margin-top: 8px;
+      color: #ddd;
     }
 
-    .book-img {
-  width: 100%;
-  height: auto;          /* hauteur fixe identique pour toutes */
-  object-fit: cover;     /* garde le ratio sans déformer */
-  border-radius: 8px;
-  margin: 10px 0;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-}
-
-    /* ===================== */
-    /* Footer */
-    /* ===================== */
-    footer {
-      margin-top: 40px;
-      text-align: center;
-      font-weight: 600;
-      color: rgba(255,255,255,0.6);
-      z-index: 1;
+    .search-bar {
+      width: 90%;
+      max-width: 400px;
+      padding: 10px;
+      margin-bottom: 20px;
+      border-radius: 20px;
     }
-
-    footer a {
-      color: rgba(255,255,255,0.6);
-      text-decoration: none;
-      border-bottom: 1px dashed rgba(255,255,255,0.6);
-    }
-/* ===================== */
-/* Animation Fade In */
-/* ===================== */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(15px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-@keyframes flicker {
-  0%   { opacity: 1; }
-  5%   { opacity: 0.8; }
-  10%  { opacity: 1; }
-  15%  { opacity: 0.9; }
-  20%  { opacity: 1; }
-  100% { opacity: 0.95; }
-}
-
-/* ===================== */
-/* Barre de recherche */
-/* ===================== */
-.search-bar {
-  width: 100%;
-  max-width: 400px;
-  padding: 12px 18px;
-  margin-bottom: 30px;
-  border-radius: 25px;
-  border: none;
-  outline: none;
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.1em;
-  background-color: rgba(255,255,255,0.6);
-  color: #1A1A1A;
-}
-
-/* ===================== */
-/* Animation fade livres */
-/* ===================== */
-.card {
-  opacity: 1;
-  transform: scale(1);
-  transition: opacity 0.3s ease, transform 0.3s ease;
-}
-
-.card.fade-out {
-  opacity: 0;
-  transform: scale(0.95);
-  pointer-events: none;
-}
-
-/* Animation fade-in page entière */
-body {
-  opacity: 0;           /* Commence invisible */
-  transition: opacity 1s ease; /* Durée de l'animation */
-}
-
-body.fade-in {
-  opacity: 1;           /* Devient visible */
-}
-
-
-/* ===========================
-   MENU – PHONE ONLY
-   =========================== */
-@media (max-width: 768px) {
-
-  .menu-carte-container {
-    top: 10px;
-    right: 10px;
-    left: auto;
-    flex-direction: row;
-    gap: 8px;
-  }
-
-  .menu-carte {
-    width: 42px;
-    height: 42px;
-    border-radius: 10px;
-    justify-content: center;
-    padding-left: 0;
-  }
-
-  .menu-icon {
-    width: 22px;
-    height: 22px;
-  }
-
-  /* Désactiver l'effet hover sur mobile */
-  .menu-carte:hover {
-    width: 42px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-    justify-content: center;
-    padding-left: 0;
-  }
-
-  .menu-text {
-    display: none;
-  }
-}
-
-/* ===========================
-   CARTES LIVRES – PHONE
-   =========================== */
-@media (max-width: 768px) {
-
-   .cards-container {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    column-gap: 14px;   /* espace ENTRE les 2 livres */
-    row-gap: 16px;      /* espace vertical */
-    padding: 0 10px;    /* marge latérale pour éviter que ça colle aux bords */
-  }
-
-  .card {
-    width: 90%;
-    height: 90%;
-    padding: 10px;
-    border-radius: 10px;
-  }
-
-  .book-img {
-    height: auto;
-  }
-
-  .author {
-    font-size: 0.8em;
-  }
-
-  .title {
-    font-size: 0.85em;
-  }
-}
-
-.card {
-  -webkit-tap-highlight-color: transparent;
-}
-
   </style>
 </head>
 
 <body>
-  <!-- Menu iconique -->
-  <div class="menu-carte-container">
-    <a href="index.html" class="menu-carte">
-      <img src="home.png" class="menu-icon" alt="Accueil">
-      <span class="menu-text">Accueil</span>
-    </a>
-    <a href="accueil revues.html" class="menu-carte">
-      <img src="revue.png" class="menu-icon" alt="Revues">
-      <span class="menu-text">Revues</span>
-    </a>
-    <a href="quotes.html" class="menu-carte">
-      <img src="quote.png" class="menu-icon" alt="Quotes">
-      <span class="menu-text">Quotes</span>
-    </a>
-  </div>
 
+<h1>THRILLER</h1>
+<h3>La vérité laisse toujours des traces...</h3>
 
-  <div class="title-container">
-  <h1>THRILLER</h1>
-  <div class="blood-line"></div>
-</div>
-<h2>La vérité laisse toujours des traces ...</h2>
+<input type="text" id="searchInput" class="search-bar" placeholder="Rechercher...">
 
-<input 
-  type="text" 
-  id="searchInput" 
-  placeholder="Rechercher par auteur ou titre..."
-  class="search-bar">
-
-  <div class="cards-container">
-<div class="card" data-author="Freida McFadden" data-title="Le Boyfriend">
-  <div class="author">Freida McFadden</div>
-      <img src="boyfriend.jpg" class="book-img">
-      <div class="title">Le Boyfriend</div>
-    </div>
-
-    <div class="card" data-author="Alex Michaelides" data-title="Dans Son Silence">
-      <div class="author">Alex Michaelides</div>
-      <img src="dans son silence.jpg" class="book-img">
-      <div class="title">Dans Son Silence</div>
-    </div>
-
-    <div class="card" data-author="Paula Hawkins" data-title="La Fille Du Train">
-      <div class="author">Paula Hawkins</div>
-      <img src="fille du train.jpg" class="book-img">
-      <div class="title">La Fille Du Train</div>
-    </div>
-
-    <div class="card" data-author="Jeneva Rose" data-title="Le Mariage Parfait">
-      <div class="author">Jeneva Rose</div>
-      <img src="mariage parfait.jpg" class="book-img">
-      <div class="title">Le Mariage Parfait</div>
-    </div>
-
-<div class="card" data-author="Freida McFadden" data-title="La Prof">
-      <div class="author">Freida McFadden</div>
-      <img src="la prof.jpg" class="book-img">
-      <div class="title">La Prof</div>
-    </div>
-
-<div class="card" data-author="Harlan Coben" data-title="Six Ans Déjà">
-      <div class="author">Harlan Coben</div>
-      <img src="six ans.jpg" class="book-img">
-      <div class="title">Six Ans Déjà</div>
-    </div>
-  </div>
-
-  <footer>
-    <p><a href="index.html">Retour à l'accueil</a></p>
-    <p>Téléchargez vos prochaines lectures ici !
-      <a href="https://z-library.sk/" target="_blank">Z-library</a>
-    </p>
-<p>©2026 - Ivre de Livres</a></p>
-  </footer>
+<div class="cards-container" id="cards"></div>
 
 <script>
-  const container = document.querySelector('.cards-container');
-  const cards = Array.from(container.querySelectorAll('.card'));
-  const searchInput = document.getElementById('searchInput');
+let allBooks = [];
 
-  /* 🔤 TRI A → Z par auteur */
-  cards.sort((a, b) =>
-    a.dataset.author.localeCompare(b.dataset.author)
+fetch("data/thriller.json")
+  .then(res => res.json())
+  .then(data => {
+    allBooks = data;
+    displayBooks(data);
+  });
+
+function displayBooks(books) {
+  const container = document.getElementById("cards");
+  container.innerHTML = "";
+
+  books.forEach(book => {
+    container.innerHTML += `
+      <div class="card">
+        <div class="author">${book.author}</div>
+        <img src="${book.image}" class="book-img">
+        <div class="title">${book.title}</div>
+      </div>
+    `;
+  });
+}
+
+document.getElementById("searchInput").addEventListener("input", (e) => {
+  const value = e.target.value.toLowerCase();
+
+  const filtered = allBooks.filter(b =>
+    b.author.toLowerCase().includes(value) ||
+    b.title.toLowerCase().includes(value)
   );
-  cards.forEach(card => container.appendChild(card));
 
-  /* 🎬 Gestion du display après animation */
-  cards.forEach(card => {
-    card.addEventListener('transitionend', () => {
-      if (card.classList.contains('fade-out')) {
-        card.style.display = 'none';
-      } else {
-        card.style.display = 'block';
-      }
-    });
-  });
-
-  /* 🔍 Recherche avec fade + repositionnement */
-  searchInput.addEventListener('input', () => {
-    const value = searchInput.value.toLowerCase();
-
-    cards.forEach(card => {
-      const author = card.dataset.author.toLowerCase();
-      const title = card.dataset.title.toLowerCase();
-
-      if (author.includes(value) || title.includes(value)) {
-        card.style.display = 'block'; // nécessaire pour la réapparition
-        requestAnimationFrame(() => {
-          card.classList.remove('fade-out');
-        });
-      } else {
-        card.classList.add('fade-out');
-      }
-    });
-  });
-
-  // Au chargement de la page, ajouter la classe fade-in pour déclencher l'animation
-  window.addEventListener('DOMContentLoaded', () => {
-    document.body.classList.add('fade-in');
-  });
+  displayBooks(filtered);
+});
 </script>
-
 
 </body>
 </html>
